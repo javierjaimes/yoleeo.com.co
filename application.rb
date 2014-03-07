@@ -4,7 +4,7 @@ require 'json'
 require 'xmlsimple'
 require 'dragonfly'
 require 'mongoid' 
-require 'redis' 
+require 'REDIS' 
 require 'rack-flash'
 require 'warden' 
 require 'sinatra'
@@ -20,6 +20,15 @@ Dragonfly.app.configure do
 end
 
 LOGUEALO ||= Loguealo.new( 'eba6fa57ae1a4a8ca31ea3f7bcb14e93', '6c73edc5cd465f62573dcfe3b96f46f386afac75107c062d77fd7969b715d99a', 'http://0c433c11db109938a7d8a5a99e1d7f88.loguealo.com' )
+
+configure :development do
+  register Sinatra::Reloader
+  REDIS = Redis.new( :host => 'localhost', :port => '6379', :password => 'foobared' )
+end
+configure :production do
+  uri = URI.parse(ENV["REDISTOGO_URL"])
+  REDIS = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
+end
 
 
 use Rack::Session::Cookie, secret: "__app_homepage"
@@ -42,14 +51,11 @@ Warden::Strategies.add(:password) do
   end
 
   def authenticate!
-    puts 'finding user'
     response =  LOGUEALO.get email: params['user']['username']
     if response.code == 404
       fail!( 'Could not log in' )
 
     else
-      puts 'AQUI'
-      puts response.body
       account = JSON.parse( response.body )[ 'account' ]
 
       password = BCrypt::Engine.hash_secret(params['user']['password'], account['salt'])
@@ -59,14 +65,6 @@ Warden::Strategies.add(:password) do
 end
 
 
-configure :development do
-  register Sinatra::Reloader
-  redis = Redis.new( :host => 'localhost', :port => '6379', :password => 'foobared' )
-end
-configure :production do
-  uri = URI.parse(ENV["REDISTOGO_URL"])
-  REDIS = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
-end
 
 
 get '/users/new/?' do
@@ -97,18 +95,18 @@ end
 
 get '/' do
   stories_json = []
-  stories = redis.zrevrange 'feeds:stories', 0, 50
+  stories = REDIS.zrevrange 'feeds:stories', 0, 50
   stories.each_with_index do | story, key |
     #do i like it?
-    story_data = JSON.parse(redis.get(sprintf('stories:%s', story)))
+    story_data = JSON.parse(REDIS.get(sprintf('stories:%s', story)))
     if current_user?
-      like = redis.sismember( sprintf( 'users:%s:likes', current_user['id']['$oid'] ), story )
+      like = REDIS.sismember( sprintf( 'users:%s:likes', current_user['id']['$oid'] ), story )
       hstory = story_data[0].merge!({ like: like })
     else
       hstory = story_data[0]
     end
 
-    nlikes = redis.get sprintf( 'stories:%s:likes', hstory['id'] )
+    nlikes = REDIS.get sprintf( 'stories:%s:likes', hstory['id'] )
     hstory.merge!({ nlikes: ( nlikes.nil? ? 0:nlikes ) })
 
     stories_json.push hstory
@@ -119,15 +117,15 @@ end
 
 get '/stories/:id' do
   params[:id]
-  story = redis.get sprintf 'stories:%s', params[:id]
+  story = REDIS.get sprintf 'stories:%s', params[:id]
   halt 404 if story.nil?
 
   story_key = sprintf 'stories:%s:score', params[:id] 
-  score = redis.get story_key
+  score = REDIS.get story_key
   if score.nil?
-    redis.set story_key, 1
+    REDIS.set story_key, 1
   else
-    redis.incr  story_key
+    REDIS.incr  story_key
   end
 
   story = JSON.parse story
@@ -163,9 +161,9 @@ end
 post '/loguealo/new/?' do
   account = JSON.parse( request.body.read )[ 'account' ]
   account_id = account[ 'id' ][ '$oid' ]
-  user = redis.hlen(sprintf('users:%s', account_id ))
+  user = REDIS.hlen(sprintf('users:%s', account_id ))
   if user <= 0
-    redis.hmset( sprintf( 'users:%s', account_id ), 'name', account[ 'name' ], 'id', account_id )
+    REDIS.hmset( sprintf( 'users:%s', account_id ), 'name', account[ 'name' ], 'id', account_id )
   end
 end
 
@@ -176,21 +174,21 @@ post '/stories/:id/?' do
   user_id = current_user[ 'id' ][ '$oid']
   likes_key = sprintf( 'users:%s:likes', user_id )
 
-  member = redis.sismember likes_key, params[ :id ]
+  member = REDIS.sismember likes_key, params[ :id ]
   if !member
     puts 'create the member'
 
     #basic set
-    redis.sadd likes_key, story_id
-    redis.incr sprintf( 'stories:%s:likes', story_id )
+    REDIS.sadd likes_key, story_id
+    REDIS.incr sprintf( 'stories:%s:likes', story_id )
 
     #plus score
-    score = redis.zscore 'feed:likes', story_id
+    score = REDIS.zscore 'feed:likes', story_id
     if score.nil?
-      story_key = redis.zcard 'feed:likes'
-      redis.zadd 'feed:likes', story_key, story_id
+      story_key = REDIS.zcard 'feed:likes'
+      REDIS.zadd 'feed:likes', story_key, story_id
     else
-      redis.zincrby 'feed:likes', score, story_id
+      REDIS.zincrby 'feed:likes', score, story_id
     end
   end
   redirect '/'
