@@ -1,0 +1,104 @@
+!!! 5
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+
+%html.no-js{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}
+    %title Mi Pagina de Inicio
+    %meta{:name => "description", :content => ""}
+    %meta{:name => "keywords", :content => ""}
+    %meta{:name => "author", :content => ""}
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1"}
+    %meta{:name => "apple-mobile-web-app-capable", :content => "yes"}
+    %meta{:name => "apple-mobile-web-app-status-bar-style", :content => "black"}
+
+    %link{:rel => "apple-touch-startup-image", :href => "/img/touch/startup.png"}
+    %link{:rel => "alternate", :type => "application/rss+xml", :title => "RSS", :href => "http://feeds.feedburner.com/FEEDNAME"}
+    %link{:href => "/favicon.ico", :rel => "shortcut icon"}
+    %link{:rel => "apple-touch-icon-precomposed", :sizes => "144x144", :href => "/img/touch/apple-touch-icon-144x144-precomposed.png"}
+    %link{:rel => "apple-touch-icon-precomposed", :sizes => "114x114", :href => "/img/touch/apple-touch-icon-114x114-precomposed.png"}
+    %link{:rel => "apple-touch-icon-precomposed", :sizes => "72x72", :href => "/img/touch/apple-touch-icon-72x72-precomposed.png"}
+    %link{:rel => "apple-touch-icon-precomposed", :href => "/img/touch/apple-touch-icon-57x57-precomposed.png"}
+    %link{:rel => "shortcut icon", :href => "/img/touch/apple-touch-icon.png"}
+    -# %link{:href=>'http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800', :rel => 'stylesheet', :type=>'text/css' }
+    -# %link{:rel => "stylesheet", :href => "/stylesheets/reset.css"}
+    %link{:rel => "stylesheet", :href => "//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"}
+    %link{:rel => "stylesheet", :href => "http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700", :type => "text/css" }
+    %link{:rel => "stylesheet", :href => "http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800", :type => "text/css" }
+    %link{:rel => "stylesheet", :href => "/stylesheets/style.css", :type => "text/css" }
+    %link{:rel => "stylesheet", :href => "/stylesheets/application.css"}
+
+
+    /[if (lt IE 9) & (!IEMobile)]
+      %script{:src => "//html5shim.googlecode.com/svn/trunk/html5.js"}
+      %script{:src => "/js/libs/selectivizr.min.js"}
+      %link{:rel => "stylesheet", :href => "/css/oldie.css"}
+      %link{:rel => "stylesheet", :href => "/css/ie8.css"}
+
+    /[if (lt IE 8) & (!IEMobile)]
+      %link{:rel => "stylesheet", :href => "/css/ie7.css"}
+
+    /[if IE 6 & (!IEMobile)]
+      %link{:rel => "stylesheet", :href => "/css/ie6.css"}
+
+    %script{:src => "/js/libs/modernizr.custom.js"}
+
+    %body
+      %div#home.header
+        %div.header_top
+          .wrap
+            .logo
+              %a{ :href => "/" }
+                %img{ :src => "/images/logo.png" } 
+            .menu
+              %ul
+                %li.current
+                  %a{ :href => "/" } Inicio
+                %li
+                  %a{ :href => "/about" } Acerca de
+                - if current_user?
+                  %li
+                    %form{ :action => "/sessions", :method => "post" }
+                      %input{ :type => "hidden", :name => "_method", :value => "delete" }
+                      %input{ :type => "submit", :value => "salir" }
+                  %li.login
+                    .loginContainer
+                      %a{ :href => "/users/#{current_user['id']['$oid']}/edit" }
+                        %span Mi cuenta!
+                - else
+                  %li.login
+                    .loginContainer
+                      %a{ :href => "/users/new" }
+                        %span Registrarse
+                  %li.login
+                    #loginContainer
+                      %a#loginButton{ :href => "/sessions/new" }
+                        %span
+                          Iniciar Sesion
+            .clear
+      = yield
+      #section-4.footer.section
+        .wrap
+          .section.group.example
+            .col_1_of_2.span_1_of_2
+              .footer_logo
+                %img{ :src => "images/logo.png", :alt => "" }
+              %p Lorem ipsum dolor sit amet, sed do eiusmod tempor ut labore et dolore magna aliqua. Duis aute irure dolor in velit esse cillum dolore eu fugiat nulla pariatur.
+              .search_box
+                %form{ :action => "/", :method => "post" }
+                  %input.textbox{ :type => "text", :name => "", :value => "", :placeholder => ""  }
+                  %input{ :type => "submit" }
+            .col_1_of_2.span_1_of_2
+              .social_icons
+                %ul
+                  %li
+                    %a.rss{:href => "/" }
+                  %li
+                    %a.dribble{:href => "/" }
+                  %li
+                    %a.twitter{:href => "/" }
+                  %li
+                    %a.facebook{:href => "/" }

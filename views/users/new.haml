@@ -1,0 +1,42 @@
+#container.main
+  .content
+    #section-1.content_top.section
+      .wrap
+        .banner_desc
+          .wmuSlider.example1
+            .wmuSliderWrapper
+              %article
+                %p 
+                  Ya eres un Usuario?
+                  %br
+                  %a{ :href => "/sessions/new" }
+                    %small{ :style => "font-size: .4em !important"} Aqui puedes Iniciar Sesion
+    #section-2.about_desc.section
+      .wrap
+        .loginBox{ :style => "display: block; width: 50%; margin: 0 auto;" } 
+          %form{ :action => "/users", :method => "post" }
+            %fieldset{ :style => "padding: 10px 0;" }
+              %label{ :for => "name", :style => "display: block;"  } Nombre Completo: *
+              %input#name{ :type => "text", :name => "user[name]", :placeholder => "Mr. Passenger", :style => "padding: 2%; width: 96%; border-radius: 5px;" }
+            %fieldset{ :style => "padding: 10px 0;" }
+              %label{ :for => "username", :style => "display: block;"  } Correo Electronico: *
+              %input#username{ :type => "text", :name => "user[username]", :placeholder => "myeamil@yourdomain.com", :style => "padding: 2%; width: 96%; border-radius: 5px;" }
+            %fieldset{ :style => "padding: 10px 0;" }
+              %label{ :for => "password", :style => "display: block;"  } Clave: *
+              %input#password{ :type => "password", :name => "user[password]", :placeholder => "myeamil@yourdomain.com", :style => "padding: 2%; width: 96%; border-radius: 5px;" }
+            %fieldset{ :style => "padding: 10px 0;" }
+              %label{ :for => "password_confirmation", :style => "display: block;"  } Confirmar Clave: *
+              %input#password_confirmation{ :type => "password", :name => "user[password_confirmation]", :placeholder => "myeamil@yourdomain.com", :style => "padding: 2%; width: 96%; border-radius: 5px;" }
+            %fieldset{ :style => "padding: 10px 0;" }
+              %label{ :for => "gender_male", :style => ""  } Hombre:
+              %input#gender_male{ :type => "radio", :name => "user[gender]", :value => "male", :checked => "checkeded"  }
+              %label{ :for => "gender_female", :style => ""  } Mujer:
+              %input#gender_male{ :type => "radio", :name => "user[gender]", :value => "male" }
+            %fieldset{ :style => "padding: 10px 0;" }
+              %label{ :for => "birthday", :style => "display: block;"  } Fecha de Nacimiento: *
+              %input#birthday{ :type => "text", :name => "user[birthday]", :placeholder => "DD/MM/YYYY", :style => "padding: 2%; width: 96%; border-radius: 5px;" }
+            %fieldset{ :style => "padding: 10px 0;" }
+              %input#accept_terms{ :type => "checkbox", :name => "user[accept_terms]", :checked => "checkeded" }
+              %label{ :for => "accept_terms", :style => "" } Aceptar Terminos y Condiciones
+            %fieldset
+              %input.login{ :type => "submit", :value => "Crear Cuenta" }

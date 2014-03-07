@@ -1,0 +1,26 @@
+#container.main
+  .content
+    #section-3.features.section
+      .wrap
+        #columns
+          - news.each do |n|
+            .pin
+              - if !n[ 'image' ].empty?
+                %img{ :src => '/images/?url=' + n[ 'image' ] }
+              .pin-meta
+                %h2          
+                  %a{ :href => '/stories/' + n[ 'id' ] }= n[ 'title' ]
+
+                - if !n[ 'description' ].empty?
+                  %p= n[ 'description' ][0..50] + '...'
+              .pin-actions
+                %p{ :style => "text-align:left;" }
+                  %form{ :action => "/stories/#{n['id']}", :method => "post", :style => "float: left;"  }
+                    %button{ :type => "submit" }
+                      - if n[ :like ]
+                        %i.fa.fa-thumbs-o-down
+                      - else
+                        %i.fa.fa-thumbs-o-up
+                  = n[ :nlikes ]
+                  -# %i.fa.fa-flag-o
+                  -# 15

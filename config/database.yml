@@ -1,0 +1,31 @@
+development:
+  sessions:
+    default:
+      database: homepage
+      hosts:
+        - localhost:27017
+      options:
+        pool_size: 1
+  # Configure Mongoid specific options. (optional)
+  options:
+    allow_dynamic_fields: true
+    # identity_map_enabled: false
+    # include_root_in_json: false
+    # include_type_for_serialization: false
+    # preload_models: false
+    # protect_sensitive_fields: true
+    raise_not_found_error: false
+    # scope_overwrite_exception: false
+    # skip_version_check: false
+    # use_activesupport_time_zone: true
+    # use_utc: false
+test:
+  sessions:
+    default:
+      database: homepage_test§
+      hosts:
+        - localhost:27017
+production:
+  sessions:
+    default:
+      uri: <%= ENV["ECHO_URI"] %>
