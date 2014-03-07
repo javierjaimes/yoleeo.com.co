@@ -22,10 +22,13 @@ development:
 test:
   sessions:
     default:
-      database: homepage_test§
+      database: homepage_test
       hosts:
         - localhost:27017
 production:
   sessions:
     default:
-      uri: <%= ENV["ECHO_URI"] %>
+      uri: <%= ENV['MONGOHQ_URL'] %>
+      options:
+        skip_version_check: true
+        safe: true

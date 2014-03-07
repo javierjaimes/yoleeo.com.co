@@ -13,7 +13,7 @@ require './libs/loguealo'
 require './helpers/sessions'
 require './models/user'
 
-Mongoid.load!( 'config/database.yml' )
+Mongoid.load!( 'config/mongoid.yml' )
 
 Dragonfly.app.configure do
   plugin :imagemagick
