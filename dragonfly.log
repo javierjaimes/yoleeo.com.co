@@ -4638,3 +4638,55 @@ DRAGONFLY: shell command: 'convert' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw000
 DRAGONFLY: GET /images/?url=http://feeds.elespectador.com/c/33813/f/607844/e/1/s/37ec851f/l/0Lst0Belespectador0Bco0Cfiles0Cimg0Iipad0C21f0A0A16418a6ebdc0A5e990Aba6629fb5a0Bjpg/21f0016418a6ebdc05e990ba6629fb5a.jpg 200
 DRAGONFLY: shell command: 'convert' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140307-6628-1rdngil' '-resize' '238x' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140307-6628-oouegg.jpg'
 DRAGONFLY: GET /images/?url=http://feeds.elespectador.com/c/33813/f/607844/e/1/s/37ec5538/l/0Lst0Belespectador0Bco0Cfiles0Cimagenprincipal0C8dbd7d20A0Adb4570Adc58519a4c63b4cd50Bjpg/8dbd7d200db4570dc58519a4c63b4cd5.jpg 200
+DRAGONFLY: shell command: 'convert' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-704tzc' '-resize' '238x' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-otm70a.jpg'
+DRAGONFLY: GET /images/?url=http://feeds.elespectador.com/c/33813/f/607844/e/1/s/37ece90a/l/0Lst0Belespectador0Bco0Cfiles0C88cdb95174fab0A8fcabd0A820A36a836f30Bjpg/88cdb95174fab08fcabd082036a836f3.jpg 200
+DRAGONFLY: shell command: 'convert' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-15i0s47' '-resize' '238x' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-1gk0uye.jpg'
+DRAGONFLY: GET /images/?url=http://feeds.elespectador.com/c/33813/f/607844/e/1/s/37ece9da/l/0Lst0Belespectador0Bco0Cfiles0Cimagenprincipal0C7d0Ab461e6dd0Adb79abe889543ffa0A86b0Bjpg/7d0b461e6dd0db79abe889543ffa086b.jpg 200
+DRAGONFLY: shell command: 'convert' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-1ltpwia' '-resize' '238x' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-18crhqm.png'
+DRAGONFLY: GET /images/?url=http://www.eltiempo.com/deportes/futbol/IMAGEN/IMAGEN-13485896-1.png 200
+DRAGONFLY: shell command: 'convert' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-1cwsio1' '-resize' '238x' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-1g2up0d.jpg'
+DRAGONFLY: GET /images/?url=http://feeds.elespectador.com/c/33813/f/607844/e/1/s/37ecc949/l/0Lst0Belespectador0Bco0Cfiles0Cimagenprincipal0Ced786c719997310Ac0A670Acdc2bd0Aafe480Bjpg/ed786c719997310c0670cdc2bd0afe48.jpg 200
+DRAGONFLY: shell command: 'convert' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-1x6m64a' '-resize' '238x' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-90m2kq.jpg'
+DRAGONFLY: GET /images/?url=http://feeds.elespectador.com/c/33813/f/607844/e/1/s/37ece5c0/l/0Lst0Belespectador0Bco0Cfiles0Cimagenprincipal0C466e51fbf8d96a196d7a3b29c776ddf20Bjpg/466e51fbf8d96a196d7a3b29c776ddf2.jpg 200
+DRAGONFLY: shell command: 'convert' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-1q0j7ux' '-resize' '238x' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-1a05zht.jpg'
+DRAGONFLY: GET /images/?url=http://feeds.elespectador.com/c/33813/f/607844/e/1/s/37ece662/l/0Lst0Belespectador0Bco0Cfiles0Cimagenprincipal0C8dab630A6b0A2dc0A8b90Ac6591fc44182160Bjpg/8dab6306b02dc08b90c6591fc4418216.jpg 200
+DRAGONFLY: shell command: 'convert' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-lcfzvv' '-resize' '238x' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-8n2ho4.jpg'
+DRAGONFLY: GET /images/?url=http://feeds.elespectador.com/c/33813/f/607844/e/1/s/37ec8bc6/l/0Lst0Belespectador0Bco0Cfiles0Cimages0C20A140A30C5379ec3da197f11aed1e1fb3225280A0A50Bjpg/5379ec3da197f11aed1e1fb322528005.jpg 200
+DRAGONFLY: shell command: 'convert' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-gho5di' '-resize' '238x' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-gqbenp.png'
+DRAGONFLY: GET /images/?url=http://www.eltiempo.com/tecnologia/actualidad/IMAGEN/IMAGEN-13612935-1.png 200
+DRAGONFLY: shell command: 'convert' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-wm1n2w' '-resize' '238x' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-1ovu1v9.jpg'
+DRAGONFLY: GET /images/?url=http://www.eltiempo.com/vida-de-hoy/ecologia/IMAGEN/IMAGEN-13613355-1.jpg 200
+DRAGONFLY: shell command: 'convert' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-jz0t91' '-resize' '238x' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-12tgses.jpg'
+DRAGONFLY: GET /images/?url=http://www.eltiempo.com/IMAGEN/IMAGEN-13612860-1.jpg 200
+DRAGONFLY: shell command: 'convert' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-3mlmpt' '-resize' '238x' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-1wwlyxk.jpg'
+DRAGONFLY: GET /images/?url=http://feeds.elespectador.com/c/33813/f/607844/e/1/s/37ec8b48/l/0Lst0Belespectador0Bco0Cfiles0Cimagenprincipal0C84a46484359470A521a5fa2f0Aa80A917830Bjpg/84a46484359470521a5fa2f0a8091783.jpg 200
+DRAGONFLY: shell command: 'convert' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-1lh0uxk' '-resize' '238x' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-na0gag.jpg'
+DRAGONFLY: GET /images/?url=http://www.eltiempo.com/IMAGEN/IMAGEN-13612865-1.jpg 200
+DRAGONFLY: shell command: 'convert' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-1ivkyp9' '-resize' '238x' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-44ywz0.jpg'
+DRAGONFLY: GET /images/?url=http://feeds.elespectador.com/c/33813/f/607844/e/1/s/37ec5a69/l/0Lst0Belespectador0Bco0Cfiles0C8b18d48b63e0A39f4c82b4d29ccb63d5c0Bjpg/8b18d48b63e039f4c82b4d29ccb63d5c.jpg 200
+DRAGONFLY: shell command: 'convert' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-4oafk0' '-resize' '238x' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-pkoxfq.jpg'
+DRAGONFLY: GET /images/?url=http://www.eltiempo.com/deportes/futbol-colombiano/IMAGEN/IMAGEN-13613599-1.jpg 200
+DRAGONFLY: shell command: 'convert' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-1gdmbr1' '-resize' '238x' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-1n6hkpy.jpg'
+DRAGONFLY: GET /images/?url=http://feeds.elespectador.com/c/33813/f/607844/e/1/s/37ec5180/l/0Lst0Belespectador0Bco0Cfiles0Cimagenprincipal0C6386782620Ad8f646a2110Af736a5fe9a70Bjpg/6386782620d8f646a2110f736a5fe9a7.jpg 200
+DRAGONFLY: shell command: 'convert' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-qct563' '-resize' '238x' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-yovweh.jpg'
+DRAGONFLY: GET /images/?url=http://feeds.elespectador.com/c/33813/f/607844/e/1/s/37ec5538/l/0Lst0Belespectador0Bco0Cfiles0Cimagenprincipal0C8dbd7d20A0Adb4570Adc58519a4c63b4cd50Bjpg/8dbd7d200db4570dc58519a4c63b4cd5.jpg 200
+DRAGONFLY: shell command: 'convert' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-64ui60' '-resize' '238x' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-19caagl.png'
+DRAGONFLY: GET /images/?url=http://www.eltiempo.com/entretenimiento/tv/IMAGEN/IMAGEN-13612015-1.png 200
+DRAGONFLY: shell command: 'convert' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-1iihnup' '-resize' '238x' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-1v6wiuo.jpg'
+DRAGONFLY: GET /images/?url=http://feeds.elespectador.com/c/33813/f/607844/e/1/s/37ec5544/l/0Lst0Belespectador0Bco0Cfiles0C32e6c0A4392446a7fd20A396483aa646120Bjpg/32e6c04392446a7fd20396483aa64612.jpg 200
+DRAGONFLY: shell command: 'convert' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-h4dpyw' '-resize' '238x' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-15z2afd.jpg'
+DRAGONFLY: GET /images/?url=http://feeds.elespectador.com/c/33813/f/607844/e/1/s/37ec851f/l/0Lst0Belespectador0Bco0Cfiles0Cimg0Iipad0C21f0A0A16418a6ebdc0A5e990Aba6629fb5a0Bjpg/21f0016418a6ebdc05e990ba6629fb5a.jpg 200
+DRAGONFLY: shell command: 'convert' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-1ou1bm' '-resize' '238x' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-1sdse27.jpg'
+DRAGONFLY: GET /images/?url=http://www.eltiempo.com/justicia/IMAGEN/IMAGEN-13613076-1.jpg 200
+DRAGONFLY: shell command: 'convert' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-8uazug' '-resize' '238x' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-17sbdcl.png'
+DRAGONFLY: GET /images/?url=http://www.eltiempo.com/colombia/bogota/IMAGEN/IMAGEN-13613620-1.png 200
+DRAGONFLY: shell command: 'convert' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-h8iuer' '-resize' '238x' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-4jdlim.jpg'
+DRAGONFLY: GET /images/?url=http://www.eltiempo.com/justicia/IMAGEN/IMAGEN-13612315-1.jpg 200
+DRAGONFLY: shell command: 'convert' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-1hnaec0' '-resize' '238x' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-87az5o.jpg'
+DRAGONFLY: GET /images/?url=http://feeds.elespectador.com/c/33813/f/607844/e/1/s/37e871df/l/0Lst0Belespectador0Bco0Cfiles0C4c14e279de167d5a665e3f3b6630A161b0Bjpg/4c14e279de167d5a665e3f3b6630161b.jpg 200
+DRAGONFLY: shell command: 'convert' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-nf36e0' '-resize' '238x' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-cbndjn.jpg'
+DRAGONFLY: GET /images/?url=http://feeds.elespectador.com/c/33813/f/607844/e/1/s/37ec5223/l/0Lst0Belespectador0Bco0Cfiles0Cimagenprincipal0Cc0A7daa8da2fba1a20A319710Aa6f45d9880Bjpg/c07daa8da2fba1a20319710a6f45d988.jpg 200
+DRAGONFLY: shell command: 'convert' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-1gx6m5a' '-resize' '238x' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-3qchvr.jpg'
+DRAGONFLY: GET /images/?url=http://www.eltiempo.com/tecnologia/IMAGEN/IMAGEN-13613003-1.jpg 200
+DRAGONFLY: shell command: 'convert' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-14gl9nb' '-resize' '238x' '/var/folders/k2/pgddl8_90zs1jfxfqyx3rjsw0000gn/T/dragonfly20140329-3216-nlufdk.jpg'
+DRAGONFLY: GET /images/?url=http://feeds.elespectador.com/c/33813/f/607844/e/1/s/37ec4e40/l/0Lst0Belespectador0Bco0Cfiles0Cimagenprincipal0Cc531e423192971fb36ebbc939135638f0Bjpg/c531e423192971fb36ebbc939135638f.jpg 200
