@@ -130,7 +130,8 @@ class App < Sinatra::Base
       end
 
       nlikes = REDIS.get sprintf( 'stories:%s:likes', hstory['id'] )
-      hstory.merge!({ nlikes: ( nlikes.nil? ? 0:nlikes ) })
+      score = REDIS.get sprintf('stories:%s:score', hstory['id'])
+      hstory.merge!({ nlikes: ( nlikes.nil? ? 0:nlikes ), nscore: (score.nil? ? 0 : score)  })
 
       stories_json.push hstory
     end
