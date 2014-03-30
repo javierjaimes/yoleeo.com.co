@@ -12,12 +12,24 @@ class Loguealo
 
   def get criteria = nil
     uri = '/'
-    query = { timestamp: Time.now.to_i }
-    query = query.merge! criteria if !criteria.nil?
-    options = {
-      query: query
-    }
-    options = options.merge!( generate( uri, options[ :query ]) )
+    options = {}
+
+    if criteria.is_a?(Hash)
+      query = { timestamp: Time.now.to_i }
+      query = query.merge! criteria 
+      options = {
+        query: query
+      }
+      options = options.merge!( generate( uri, options[ :query ]) )
+    elsif !criteria.nil?
+      uri = sprintf( '%s%s', uri, criteria )
+      query = { timestamp: Time.now.to_i }
+      options = {
+        query: query
+      }
+      options = options.merge!( generate( uri, options[ :query ]) )
+    end
+
     self.class.get uri, options
   end
 

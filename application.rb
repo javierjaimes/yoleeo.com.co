@@ -1,9 +1,7 @@
-require 'open-uri'
 require 'bcrypt'
 require 'json'
 require 'xmlsimple'
 require 'dragonfly'
-require 'mongoid' 
 require 'redis' 
 require 'rack-flash'
 require 'warden' 
@@ -21,180 +19,200 @@ end
 
 LOGUEALO ||= Loguealo.new( 'eba6fa57ae1a4a8ca31ea3f7bcb14e93', '6c73edc5cd465f62573dcfe3b96f46f386afac75107c062d77fd7969b715d99a', 'http://0c433c11db109938a7d8a5a99e1d7f88.loguealo.com' )
 
-configure :development do
-  register Sinatra::Reloader
-  REDIS = Redis.new( :host => 'localhost', :port => '6379', :password => 'foobared' )
-end
-configure :production do
-  uri = URI.parse(ENV["REDISTOGO_URL"])
-  REDIS = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
-end
+class Failure < Sinatra::Base
 
-
-use Rack::Session::Cookie, secret: "__app_homepage"
-use Rack::Flash
-
-use Warden::Manager do |config|
-  config.default_scope = :user
-  config.failure_app = self
-
-  config.scope_defaults :user, strategies: [ :password ]
+  post '/unauthenticated/?' do
+    session[:return_to] = env['warden.options'][:attempted_path]
+    redirect '/sessions/new'
+  end
 end
 
-Warden::Manager.before_failure do |env,opts|
-  env['REQUEST_METHOD'] = 'POST'
-end
+class App < Sinatra::Base
 
-Warden::Strategies.add(:password) do
-  def valid?
-    params['user'] && params['user']['username'] && params['user']['password']
+  configure :development do
+    register Sinatra::Reloader
+    REDIS = Redis.new( :host => 'localhost', :port => '6379', :password => 'foobared' )
   end
 
-  def authenticate!
-    response =  LOGUEALO.get email: params['user']['username']
-    if response.code == 404
-      fail!( 'Could not log in' )
+  configure :production do
+    uri = URI.parse(ENV["REDISTOGO_URL"])
+    REDIS = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
+  end
 
-    else
-      account = JSON.parse( response.body )[ 'account' ]
+  use Rack::MethodOverride
+  use Rack::Session::Cookie, secret: "__app_homepage"
+  use Rack::Flash
 
-      password = BCrypt::Engine.hash_secret(params['user']['password'], account['salt'])
-      account[ 'password' ] == password ? success!( account ) : fail!( 'Password incorrect' )
+  Warden::Manager.serialize_into_session{|user| 
+    puts 'SERIALIZE USER'
+    user['id']['$oid']
+  }
+  Warden::Manager.serialize_from_session{|id| 
+    puts 'DESERIALIZE USER'
+    response =  LOGUEALO.get id 
+    JSON.parse( response.body )[ 'account' ]
+  }
+  Warden::Manager.before_failure do |env,opts|
+    env['REQUEST_METHOD'] = 'POST'
+  end
+
+  use Warden::Manager do |config|
+    config.failure_app = Failure
+    config.default_scope = :user
+
+    config.scope_defaults :user, strategies: [ :password ]
+  end
+
+
+  Warden::Strategies.add(:password) do
+    def valid?
+      params['user'] && params['user']['username'] && params['user']['password']
+    end
+
+    def authenticate!
+      response =  LOGUEALO.get email: params['user']['username']
+      if response.code == 404
+        fail!( 'Could not log in' )
+
+      else
+        account = JSON.parse( response.body )[ 'account' ]
+
+        password = BCrypt::Engine.hash_secret(params['user']['password'], account['salt'])
+        account[ 'password' ] == password ? success!( account ) : fail!( 'Password incorrect' )
+      end
     end
   end
-end
+  
+  helpers Sinatra::Session
 
+  get '/users/new/?' do
+    haml 'users/new'.to_sym
+  end
 
+  get '/sessions/new' do
+    haml 'sessions/new'.to_sym
+  end
 
-
-get '/users/new/?' do
-  haml 'users/new'.to_sym
-end
-
-get '/sessions/new' do
-  haml 'sessions/new'.to_sym
-end
-
-delete '/sessions/?' do
-  env['warden'].raw_session.inspect
-  env['warden'].logout
-  redirect '/'
-end
-
-post '/sessions' do
-  env['warden'].authenticate!
-
-  #flash.success = env['warden'].message
-
-  if session[:return_to].nil?
+  delete '/sessions/?' do
+    puts 'DELETE SESSION'
+    env['warden'].raw_session.inspect
+    env['warden'].logout
     redirect '/'
-  else
-    redirect session[:return_to]
   end
-end
 
-get '/' do
-  stories_json = []
-  stories = REDIS.zrevrange 'feeds:stories', 0, 50
-  stories.each_with_index do | story, key |
-    #do i like it?
-    story_data = JSON.parse(REDIS.get(sprintf('stories:%s', story)))
-    if current_user?
-      like = REDIS.sismember( sprintf( 'users:%s:likes', current_user['id']['$oid'] ), story )
-      hstory = story_data[0].merge!({ like: like })
+  post '/sessions' do
+    if params[:_method] == 'delete'
+
+    end
+    env['warden'].authenticate!
+
+    #flash.success = env['warden'].message
+
+    if session[:return_to].nil?
+      redirect '/'
     else
-      hstory = story_data[0]
+      redirect session[:return_to]
     end
-
-    nlikes = REDIS.get sprintf( 'stories:%s:likes', hstory['id'] )
-    hstory.merge!({ nlikes: ( nlikes.nil? ? 0:nlikes ) })
-
-    stories_json.push hstory
-  end
-  #puts stories_json
-  haml :index, locals: { news: stories_json }
-end
-
-get '/stories/:id' do
-  params[:id]
-  story = REDIS.get sprintf 'stories:%s', params[:id]
-  halt 404 if story.nil?
-
-  story_key = sprintf 'stories:%s:score', params[:id] 
-  score = REDIS.get story_key
-  if score.nil?
-    REDIS.set story_key, 1
-  else
-    REDIS.incr  story_key
   end
 
-  story = JSON.parse story
-  redirect story[0][ 'url' ]
-end
+  get '/' do
+    stories_json = []
+    stories = REDIS.zrevrange 'feeds:stories', 0, 50
+    user = current_user?
+    stories.each_with_index do | story, key |
+      #do i like it?
+      story_data = JSON.parse(REDIS.get(sprintf('stories:%s', story)))
+      if user
+        like = REDIS.sismember( sprintf( 'users:%s:likes', current_user['id']['$oid'] ), story )
+        hstory = story_data[0].merge!({ like: like })
+      else
+        hstory = story_data[0]
+      end
 
-get '/images/' do
-  puts params[:url]
-  Dragonfly.app.fetch_url( params[:url] ).thumb('238x').to_response(env)
-end
+      nlikes = REDIS.get sprintf( 'stories:%s:likes', hstory['id'] )
+      hstory.merge!({ nlikes: ( nlikes.nil? ? 0:nlikes ) })
 
-post '/users/?' do
-  password_salt = BCrypt::Engine.generate_salt
-  password_hash = BCrypt::Engine.hash_secret(params[:user][:password], password_salt)
-  user = params[:user].except 'password', 'password_confirmation'
-  user = user.merge! password: password_hash, salt: password_salt
-
-  begin
-    response = LOGUEALO.post profile: 'user', account: user
-    if response.code == 400
-      puts 'we have an error'
-      puts response.body
-      'Error'
-    else response.code == 200
-      redirect '/sessions/new'
+      stories_json.push hstory
     end
-  rescue Exception => e
-    puts 'ERROR'
-    puts e
+    #puts stories_json
+    haml :index, locals: { news: stories_json }
   end
-end
 
-post '/loguealo/new/?' do
-  account = JSON.parse( request.body.read )[ 'account' ]
-  account_id = account[ 'id' ][ '$oid' ]
-  user = REDIS.hlen(sprintf('users:%s', account_id ))
-  if user <= 0
-    REDIS.hmset( sprintf( 'users:%s', account_id ), 'name', account[ 'name' ], 'id', account_id )
-  end
-end
+  get '/stories/:id' do
+    story = REDIS.get sprintf 'stories:%s', params[:id]
+    halt 404 if story.nil?
 
-post '/stories/:id/?' do
-  env['warden'].authenticate!
-
-  story_id = params[ :id ]
-  user_id = current_user[ 'id' ][ '$oid']
-  likes_key = sprintf( 'users:%s:likes', user_id )
-
-  member = REDIS.sismember likes_key, params[ :id ]
-  if !member
-    puts 'create the member'
-
-    #basic set
-    REDIS.sadd likes_key, story_id
-    REDIS.incr sprintf( 'stories:%s:likes', story_id )
-
-    #plus score
-    score = REDIS.zscore 'feed:likes', story_id
+    story_key = sprintf 'stories:%s:score', params[:id] 
+    score = REDIS.get story_key
     if score.nil?
-      story_key = REDIS.zcard 'feed:likes'
-      REDIS.zadd 'feed:likes', story_key, story_id
+      REDIS.set story_key, 1
     else
-      REDIS.zincrby 'feed:likes', score, story_id
+      REDIS.incr  story_key
+    end
+
+    story = JSON.parse story
+    redirect story[0][ 'url' ]
+  end
+
+  get '/images/' do
+    puts params[:url]
+    Dragonfly.app.fetch_url( params[:url] ).thumb('238x').to_response(env)
+  end
+
+  post '/users/?' do
+    password_salt = BCrypt::Engine.generate_salt
+    password_hash = BCrypt::Engine.hash_secret(params[:user][:password], password_salt)
+    user = params[:user].except 'password', 'password_confirmation'
+    user = user.merge! password: password_hash, salt: password_salt
+
+    begin
+      response = LOGUEALO.post profile: 'user', account: user
+      if response.code == 400
+        puts 'we have an error'
+        puts response.body
+        'Error'
+      else response.code == 200
+        redirect '/sessions/new'
+      end
+    rescue Exception => e
+      puts 'ERROR'
+      puts e
     end
   end
-  redirect '/'
-end
 
-post '/unauthenticated/?' do
-  session[:return_to] = env['warden.options'][:attempted_path]
-  redirect '/sessions/new'
+  post '/loguealo/new/?' do
+    account = JSON.parse( request.body.read )[ 'account' ]
+    account_id = account[ 'id' ][ '$oid' ]
+    user = REDIS.hlen(sprintf('users:%s', account_id ))
+    if user <= 0
+      REDIS.hmset( sprintf( 'users:%s', account_id ), 'name', account[ 'name' ], 'id', account_id )
+    end
+  end
+
+  post '/stories/:id/?' do
+    env['warden'].authenticate! :scope => :user
+
+    story_id = params[ :id ]
+    user_id = current_user[ 'id' ][ '$oid']
+    likes_key = sprintf( 'users:%s:likes', user_id )
+
+    member = REDIS.sismember likes_key, params[ :id ]
+    if !member
+      puts 'create the member'
+
+      #basic set
+      REDIS.sadd likes_key, story_id
+      REDIS.incr sprintf( 'stories:%s:likes', story_id )
+
+      #plus score
+      score = REDIS.zscore 'feed:likes', story_id
+      if score.nil?
+        story_key = REDIS.zcard 'feed:likes'
+        REDIS.zadd 'feed:likes', story_key, story_id
+      else
+        REDIS.zincrby 'feed:likes', score, story_id
+      end
+    end
+    redirect '/'
+  end
 end
